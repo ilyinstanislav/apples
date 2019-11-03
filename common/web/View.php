@@ -12,6 +12,12 @@ use yii\web\View as BaseComponent;
 class View extends BaseComponent
 {
     /**
+     * набор ссылок действий для страницы
+     * @var array
+     */
+    protected $buttons = [];
+
+    /**
      * хлебные крошки
      * @return array
      */

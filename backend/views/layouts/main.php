@@ -5,6 +5,7 @@ use yii\helpers\Html;
 
 use backend\widgets\LeftMenu;
 use backend\widgets\Breadcrumbs;
+use backend\widgets\ActionButtons;
 use backend\widgets\AlertBox;
 AppAsset::register($this);
 ?>
@@ -98,6 +99,7 @@ AppAsset::register($this);
                             ]);
                         ?>
                     </div>
+                    <?php echo ActionButtons::widget(['buttons' => $this->buttons]) ?>
                 </div>
                 <div class="kt-subheader   kt-grid__item" id="kt_subheader">
                     <div class="kt-container  kt-container--fluid ">
