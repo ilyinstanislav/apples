@@ -1,0 +1,53 @@
+html, body, .tooltip, .popover, .daterangepicker, .vakata-context, .vakata-context ul,
+.kt-header-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link > .kt-menu__link-text {
+    font-family: "Roboto" !important;
+}
+
+.btn {
+    text-decoration: none !important;
+}
+
+.table a {
+    text-decoration: underline;
+}
+
+.table a:hover {
+    text-decoration: none;
+}
+
+.table th > a {
+    color: #444;
+}
+
+.action-column {
+    text-align: center;
+}
+
+.width-150 {
+    width: 150px;
+    max-width: 150px;
+}
+
+.form-actions {
+    border-top: 1px solid #ebedf2;
+    padding: 25px 25px 0px;
+    margin: 0px -25px;
+}
+
+.bg-font-red,
+.bg-font-red a {
+    color: #fff;
+}
+
+.help-block {
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+.help-block.help-block-error {
+    color: #fd397a !important;
+}
+
+.kt-menu__link .kt-badge.kt-badge--rounded {
+    border-radius: 20%;
+}

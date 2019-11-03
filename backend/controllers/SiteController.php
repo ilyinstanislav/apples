@@ -1,16 +1,15 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 
 /**
- * Site controller
+ * Login controller
  */
-class SiteController extends Controller
+class SiteController extends BaseLoginController
 {
     /**
      * {@inheritdoc}
@@ -30,12 +29,6 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -60,7 +53,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->redirect('site/login');
     }
 
     /**

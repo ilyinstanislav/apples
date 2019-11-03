@@ -2,22 +2,17 @@
 
 namespace frontend\assets;
 
-use yii\web\AssetBundle;
+use common\assets\CommonAsset;
 
 /**
  * Main frontend application asset bundle.
  */
-class AppAsset extends AssetBundle
+class AppAsset extends CommonAsset
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
-    ];
-    public $js = [
-    ];
-    public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        'css/style.bundle.css',
+        'css/m.css',
+        'front/css/login-4.min.css',
+        'front/css/m.css',
     ];
 }

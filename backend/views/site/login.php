@@ -8,28 +8,39 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<div class="kt-login__signin">
+    <div class="kt-login__head">
+        <h3 class="kt-login__title">Вход на сайт</h3>
+    </div>
+    <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+    <?php
+    echo $form->field($model, 'username')
+        ->textInput([
+            'placeholder' => 'Email',
+            'autofocus' => true
+        ]);
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    echo $form->field($model, 'password')
+        ->passwordInput([
+            'placeholder' => 'Пароль'
+        ]);
+    ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
+    <div class="row kt-login__extra">
+        <div class="col">
+            <label class="kt-checkbox">
+                <?php echo Html::activeCheckbox($model, 'rememberMe', ['label' => false]) ?>
+                Запомнить меня
+                <span></span>
+            </label>
         </div>
     </div>
+    <div class="kt-login__actions">
+        <button id="kt_login_signin_submit" class="btn btn-brand btn-pill kt-login__btn-primary">Авторизоваться
+        </button>
+    </div>
+    <?php ActiveForm::end(); ?>
 </div>

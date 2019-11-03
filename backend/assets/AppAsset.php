@@ -2,22 +2,11 @@
 
 namespace backend\assets;
 
-use yii\web\AssetBundle;
+use common\assets\CommonAsset;
 
 /**
  * Main backend application asset bundle.
  */
-class AppAsset extends AssetBundle
+class AppAsset extends CommonAsset
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
-    public $css = [
-        'css/site.css',
-    ];
-    public $js = [
-    ];
-    public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-    ];
 }
