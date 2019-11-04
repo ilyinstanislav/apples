@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'language' => 'ru-RU',
     'homeUrl' => '/apples',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',

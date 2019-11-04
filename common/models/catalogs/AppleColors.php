@@ -14,7 +14,6 @@ class AppleColors extends Catalog
     const GREEN = 0;
     const YELLOW = 1;
     const RED = 2;
-    const WHITE = 3;
 
     /**
      * список ключ => значение
@@ -26,7 +25,6 @@ class AppleColors extends Catalog
             self::GREEN => 'Зеленое',
             self::YELLOW => 'Желтое',
             self::RED => 'Красное',
-            self::WHITE => 'Белое',
         ];
     }
 
@@ -40,7 +38,6 @@ class AppleColors extends Catalog
             self::GREEN => 'green',
             self::YELLOW => 'yellow',
             self::RED => 'red',
-            self::WHITE => 'white',
         ];
     }
 

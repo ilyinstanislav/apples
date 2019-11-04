@@ -6,6 +6,8 @@ use common\models\catalogs\AppleColors;
 use common\models\catalogs\AppleConditions;
 use common\models\catalogs\AppleStatuses;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
+use yii\db\StaleObjectException;
 
 /**
  * This is the model class for table "apples".
@@ -40,9 +42,10 @@ class Apple extends ActiveRecord
     {
         return [
             [['color'], 'required'],
-            [['color', 'eaten'], 'integer'],
+            [['color'], 'integer'],
+            [['eaten'], 'number', 'min' => 0.00, 'max' => 100],
             [['dt_create', 'dt_fall'], 'safe'],
-            [['status'], 'string', 'max' => 255],
+            [['status'], 'integer'],
         ];
     }
 
@@ -83,7 +86,7 @@ class Apple extends ActiveRecord
     public function getLyingDuration()
     {
         if ($this->status == AppleStatuses::FALL && $this->dt_fall) {
-            return time() - strtotime($this->dt_fall) / 3600;
+            return round((time() - strtotime($this->dt_fall)) / 3600, 1, PHP_ROUND_HALF_DOWN);
         }
         return 0;
     }
@@ -104,5 +107,66 @@ class Apple extends ActiveRecord
     public function getConditionName()
     {
         return AppleConditions::getOptionValue($this->condition);
+    }
+
+    /**
+     * Упало ли яблоко?
+     * @return int
+     */
+    public function getIsFalled()
+    {
+        return $this->status == AppleStatuses::FALL && $this->dt_fall ? 1 : 0;
+    }
+
+    /**
+     * Испортилось ли яблоко?
+     * @return int
+     */
+    public function getIsDecayed()
+    {
+        return $this->condition == AppleConditions::DECAYED ? 1 : 0;
+    }
+
+    /**
+     * Обработка падения яблока на землю
+     * @return bool
+     */
+    public function fallToGround()
+    {
+        $this->status = AppleStatuses::FALL;
+        $this->dt_fall = new Expression('NOW()');
+        return $this->save();
+    }
+
+    /**
+     * Получение размера остатка яблока
+     * @return int
+     */
+    public function getSize()
+    {
+        return 100 - $this->eaten;
+    }
+
+    /**
+     * Откусывание от яблока
+     * @param float $size
+     * @return bool|false|int
+     * @throws \Throwable
+     * @throws StaleObjectException
+     */
+    public function Eat(float $size)
+    {
+        $eaten = $this->eaten + $size;
+
+        if ($eaten > 100) {
+            return false;
+        }
+
+        if ($eaten == 100) {
+            return $this->delete();
+        }
+
+        $this->eaten = $eaten;
+        return $this->save();
     }
 }

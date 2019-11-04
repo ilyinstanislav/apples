@@ -9,4 +9,8 @@ use common\assets\CommonAsset;
  */
 class AppAsset extends CommonAsset
 {
+    public $js = [
+        'js/scripts.bundle.js',
+        'js/eat.js',
+    ];
 }

@@ -23,7 +23,7 @@ class AppleConditions extends Catalog
         return [
             self::ON_TREE => 'Висит на дереве',
             self::FALL => 'Упало/лежит на земле',
-            self::DECAYED => 'Гнилое яблоко',
+            self::DECAYED => 'Испортилось',
         ];
     }
 }

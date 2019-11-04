@@ -19,7 +19,7 @@ class m191103_122826_apples extends Migration
                 dt_create timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                 dt_fall datetime DEFAULT NULL,
                 status int(11) NOT NULL DEFAULT 0,
-                eaten tinyint(4) NOT NULL DEFAULT 0,
+                eaten decimal(10, 2) NOT NULL DEFAULT 0.00,
                 PRIMARY KEY (id)
             )
             ENGINE = INNODB,
