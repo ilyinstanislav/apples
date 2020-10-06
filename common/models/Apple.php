@@ -5,32 +5,39 @@ namespace common\models;
 use common\models\catalogs\AppleColors;
 use common\models\catalogs\AppleConditions;
 use common\models\catalogs\AppleStatuses;
+use common\models\query\AppleQuery;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
-use yii\db\StaleObjectException;
 
 /**
  * This is the model class for table "apples".
  *
- * @property int $id
- * @property int $color
- * @property string $dt_create
- * @property string $dt_fall
- * @property string $status
- * @property int $eaten
+ * @property int              $id
+ * @property int              $color
+ * @property string           $dt_create
+ * @property string           $dt_fall
+ * @property string           $status
+ * @property-read null|string $conditionName
+ * @property-read null|string $colorCode
+ * @property-read float|int   $lyingDuration
+ * @property-read int         $isDecayed
+ * @property-read int         $size
+ * @property-read int         $condition
+ * @property-read int         $isFalled
+ * @property int              $eaten
  */
 class Apple extends ActiveRecord
 {
     /**
      * Срок хранения после падения
+     *
      * @var int
      */
-    public $expiration_time = 5;
+    public $expirationTime = 5;
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'apples';
     }
@@ -38,7 +45,7 @@ class Apple extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['color'], 'required'],
@@ -52,7 +59,7 @@ class Apple extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -66,14 +73,15 @@ class Apple extends ActiveRecord
 
     /**
      * Получение состояния яблока
+     *
      * @return int
      */
-    public function getCondition()
+    public function getCondition(): int
     {
-        if ($this->status == AppleStatuses::FALL && $this->lyingDuration > $this->expiration_time) {
+        if ($this->status === AppleStatuses::FALL && $this->lyingDuration > $this->expirationTime) {
             return AppleConditions::DECAYED;
         }
-        if ($this->status == AppleStatuses::FALL) {
+        if ($this->status === AppleStatuses::FALL) {
             return AppleConditions::FALL;
         }
         return AppleConditions::ON_TREE;
@@ -81,11 +89,12 @@ class Apple extends ActiveRecord
 
     /**
      * Получение длительности лежания яблока на земле
+     *
      * @return float|int
      */
     public function getLyingDuration()
     {
-        if ($this->status == AppleStatuses::FALL && $this->dt_fall) {
+        if ($this->status === AppleStatuses::FALL && $this->dt_fall) {
             return round((time() - strtotime($this->dt_fall)) / 3600, 1, PHP_ROUND_HALF_DOWN);
         }
         return 0;
@@ -93,6 +102,7 @@ class Apple extends ActiveRecord
 
     /**
      * Получение текущего цвета яблока
+     *
      * @return string|null
      */
     public function getColorCode()
@@ -102,6 +112,7 @@ class Apple extends ActiveRecord
 
     /**
      * Получение названия текущего состояния
+     *
      * @return string|null
      */
     public function getConditionName()
@@ -111,62 +122,39 @@ class Apple extends ActiveRecord
 
     /**
      * Упало ли яблоко?
+     *
      * @return int
      */
-    public function getIsFalled()
+    public function getIsFalled(): int
     {
-        return $this->status == AppleStatuses::FALL && $this->dt_fall ? 1 : 0;
+        return $this->status === AppleStatuses::FALL && $this->dt_fall ? 1 : 0;
     }
 
     /**
      * Испортилось ли яблоко?
+     *
      * @return int
      */
-    public function getIsDecayed()
+    public function getIsDecayed(): int
     {
-        return $this->condition == AppleConditions::DECAYED ? 1 : 0;
-    }
-
-    /**
-     * Обработка падения яблока на землю
-     * @return bool
-     */
-    public function fallToGround()
-    {
-        $this->status = AppleStatuses::FALL;
-        $this->dt_fall = new Expression('NOW()');
-        return $this->save();
+        return $this->condition === AppleConditions::DECAYED ? 1 : 0;
     }
 
     /**
      * Получение размера остатка яблока
+     *
      * @return int
      */
-    public function getSize()
+    public function getSize(): int
     {
         return 100 - $this->eaten;
     }
 
     /**
-     * Откусывание от яблока
-     * @param float $size
-     * @return bool|false|int
-     * @throws \Throwable
-     * @throws StaleObjectException
+     * @return AppleQuery
      */
-    public function Eat(float $size)
+    public static function find(): AppleQuery
     {
-        $eaten = $this->eaten + $size;
-
-        if ($eaten > 100) {
-            return false;
-        }
-
-        if ($eaten == 100) {
-            return $this->delete();
-        }
-
-        $this->eaten = $eaten;
-        return $this->save();
+        return new AppleQuery(static::class);
     }
 }

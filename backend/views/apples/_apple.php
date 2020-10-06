@@ -1,16 +1,12 @@
 <?php
-/**
- * @var $apple Apple
- */
 
-use backend\models\Apple;
-use backend\widgets\Box;
+use common\widgets\Box;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\Pjax;
 
 ?>
-<div class="col-12 col-sm-6 col-md-4 apple_container_<?php echo $apple->id ?>">
+<div class="col-12 col-sm-6 col-md-4 apple_container_<?= $apple->id ?>">
     <?php
     Pjax::begin([
         'id' => 'apple_' . $apple->id
@@ -42,7 +38,7 @@ use yii\widgets\Pjax;
     echo "Остаток: {$apple->size}%<br/>";
 
     if ($apple->isFalled && !$apple->isDecayed) {
-        echo 'Испортится через: ' . ($apple->expiration_time - $apple->lyingDuration) . ' часов<br/>';
+        echo 'Испортится через: ' . ($apple->expirationTime - $apple->lyingDuration) . ' часов<br/>';
     }
 
     echo $this->render('_form', compact('apple', 'model'));

@@ -2,15 +2,17 @@
 
 namespace backend\models\forms;
 
-use backend\models\Apple;
+use common\models\Apple;
+use Throwable;
 use yii\base\Model;
 use yii\db\StaleObjectException;
 
 /**
  * Class EatForm
+ *
  * @package backend\models\forms
  *
- * @property-read int $id
+ * @property-read int   $id
  * @property-read float $size
  */
 class EatForm extends Model
@@ -19,6 +21,7 @@ class EatForm extends Model
      * @var Apple
      */
     protected $apple;
+
     /**
      * @var int
      */
@@ -32,7 +35,7 @@ class EatForm extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['size', 'id'], 'required'],
@@ -41,13 +44,16 @@ class EatForm extends Model
         ];
     }
 
+    public function init()
+    {
+        $this->apple = Apple::findOne($this->id);
+    }
+
     /**
-     * Проверяем возможность укуса
+     * @return false
      */
     public function checkBite()
     {
-        $this->apple = Apple::findOne($this->id);
-
         if (!$this->apple) {
             $this->addError('size', 'Не выбрано яблоко.');
             return false;
@@ -69,7 +75,7 @@ class EatForm extends Model
     /**
      * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'size' => 'Размер укуса, %',
@@ -78,12 +84,35 @@ class EatForm extends Model
 
     /**
      * Сохранение укуса
+     *
      * @return bool|false|int
-     * @throws \Throwable
-     * @throws StaleObjectException
      */
     public function save()
     {
-        return $this->apple->eat($this->size);
+        return $this->eat($this->size);
+    }
+
+    /**
+     * @param float $size
+     *
+     * @return bool|int
+     * @throws StaleObjectException
+     * @throws Throwable
+     */
+    private function eat(float $size)
+    {
+        $eaten = $this->apple->eaten + $size;
+
+        if ($eaten > 100) {
+            return false;
+        }
+
+        if ($eaten === (float)100) {
+            return $this->apple->delete();
+        }
+
+        $this->apple->eaten = $eaten;
+
+        return $this->apple->save(true, ['eaten']);
     }
 }

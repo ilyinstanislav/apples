@@ -1,60 +1,34 @@
 <p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
+    <h1 align="center">Тестовое задание для демонстрации кода</h1>
     <br>
 </p>
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+Реализовано на Yii 2 Advanced Project Template с использованием docker и traefik. В качестве шаблона использован готовый шаблон metronic.
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+Чтобы развернуть проект необходимо:
+1) Скачать проект.
+2) Запустить docker контейнеры.
+3) Запустить composer install в папке проекта. 
+4) Запустить миграции.
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+В /front поставлена заглушка, так как frontend не предусмотрен.<br/>
+В /backend реализована административная часть задачи.<br/>
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+Данные для входа:<br/>
+Логин: admin<br/>
+Пароль: qwe<br/>
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
+Суть задания:<br/>
+По кнопке "Сгенерировать новые яблоки" создаются случайно от 3 до 9 яблок, с случайным цветом 
+(зеленый, желтый, красный) и с случайной датой создания.<br/>
+Каждое яблоко можно уронить на землю.<br/>
+Пока яблоко висит на дереве оно не портится и его нельзя съесть.<br/>
+От упавшего яблока можно откусить кусок. Размер укуса можно указать.<br/>
+После того как яблоко упало, через 5 часов оно портится.<br/>
+Испорченное яблоко нельзя есть<br/>
+Все процедуры с яблоками происходят без перезагрузки страницы.<br/>
+Любое яблоко можно удалить.<br/>
+Съеденное яблоко автоматически удаляется.<br/>
 
-DIRECTORY STRUCTURE
--------------------
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
+

@@ -1,0 +1,49 @@
+version: '3.2'
+
+services:
+  http:
+    image: nginx:1.17-alpine
+    depends_on:
+      - php
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:apples.docker,backend.apples.docker
+      - traefik.docker.network=traefik
+    networks:
+      - bridge
+      - traefik
+    volumes:
+      - /var/www/apples/:/var/www/apples
+      - /var/www/apples/.docker/nginx:/etc/nginx/conf.d:ro
+
+  php: &php
+    build: .docker/php
+    extra_hosts:
+      - apples.codecept:127.0.0.1
+      - host.docker.internal:$DOCKER_HOST_IP
+    depends_on:
+      - apples-mysql
+    environment:
+      - PHP_IDE_CONFIG=serverName=apples.docker
+    networks:
+      - bridge
+      - traefik
+    volumes:
+      - /var/www/apples/:/var/www/apples
+      - /var/www/apples/.docker/php/php-fpm.d:/etc/php-fpm.d:ro
+      - /var/www/apples/.docker/php/php.d/0-default.ini:/etc/php.d/0-default.ini:ro
+
+  apples-mysql:
+    image: mysql:5.7
+    networks:
+      - bridge
+    environment:
+      MYSQL_DATABASE: ${SQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${SQL_PASSWORD}
+    ports:
+      - ${MYSQL_HOST_PORT}:3306
+
+networks:
+  traefik:
+    external: true
+  bridge:

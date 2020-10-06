@@ -2,6 +2,7 @@
 
 namespace common\widgets;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs as BaseWidget;

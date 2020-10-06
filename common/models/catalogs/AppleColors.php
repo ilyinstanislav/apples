@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Class AppleColors
+ *
  * @package common\models\catalogs
  */
 class AppleColors extends Catalog
@@ -17,6 +18,7 @@ class AppleColors extends Catalog
 
     /**
      * список ключ => значение
+     *
      * @return array
      */
     public static function getOptionsList(): array
@@ -30,6 +32,7 @@ class AppleColors extends Catalog
 
     /**
      * Цвета для отображения
+     *
      * @return array
      */
     public static function getColorsList(): array
@@ -43,16 +46,19 @@ class AppleColors extends Catalog
 
     /**
      * Получение рандомного цвета
+     *
      * @return int
      */
-    public static function getRandom()
+    public static function getRandom(): int
     {
         return array_rand(self::getKeys());
     }
 
     /**
      * Получение цвета по ключу
+     *
      * @param $value
+     *
      * @return string|null
      */
     public static function getColorValue($value)

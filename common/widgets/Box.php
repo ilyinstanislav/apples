@@ -8,24 +8,28 @@ use yii\helpers\Html;
 /**
  * Class Box
  * виджет генерации контентного блока
+ *
  * @package common\widgets
  */
 class Box extends Widget
 {
     /**
      * текста заголовка блока
+     *
      * @var string
      */
     public $title;
 
     /**
      * текст подзаголовка блока
+     *
      * @var string
      */
     public $caption;
 
     /**
      * опции основного блока
+     *
      * @var array
      */
     public $options = [
@@ -34,6 +38,7 @@ class Box extends Widget
 
     /**
      * опции тега подзаголовка
+     *
      * @var array
      */
     public $captionOptions = [
@@ -42,6 +47,7 @@ class Box extends Widget
 
     /**
      * опции для тела блока
+     *
      * @var array
      */
     public $bodyOptions = [
@@ -50,6 +56,7 @@ class Box extends Widget
 
     /**
      * опции блока заголовка
+     *
      * @var array
      */
     public $titleOptions = [
@@ -58,6 +65,7 @@ class Box extends Widget
 
     /**
      * опции тега заголовка
+     *
      * @var array
      */
     public $headerOptions = [
@@ -66,6 +74,7 @@ class Box extends Widget
 
     /**
      * опции блока действий
+     *
      * @var array
      */
     public $actionOptions = [
@@ -74,13 +83,15 @@ class Box extends Widget
 
     /**
      * действия в блоке
+     *
      * @var array
      */
     public $actions = [];
 
     /**
      * @param array $params
-     * @return Widget
+     *
+     * @return void
      */
     public static function begin($params = [])
     {
@@ -89,7 +100,7 @@ class Box extends Widget
     }
 
     /**
-     * @return Widget
+     * @return void
      */
     public static function end()
     {

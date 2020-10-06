@@ -3,25 +3,31 @@
 namespace common\web;
 
 use Yii;
-use yii\web\View as BaseComponent;
+use yii\web\IdentityInterface;
 
 /**
  * Class View
+ *
  * @package common\web
+ *
+ * @property-read IdentityInterface $user
+ * @property-read array             $breadcrumbs
  */
-class View extends BaseComponent
+class View extends \yii\web\View
 {
     /**
      * набор ссылок действий для страницы
+     *
      * @var array
      */
     protected $buttons = [];
 
     /**
      * хлебные крошки
+     *
      * @return array
      */
-    protected function getBreadcrumbs()
+    protected function getBreadcrumbs(): array
     {
         $items = $this->context->breadcrumbs;
         $items[] = $this->title;
@@ -30,9 +36,10 @@ class View extends BaseComponent
 
     /**
      * Текущий пользователь
-     * @return null|User
+     *
+     * @return IdentityInterface
      */
-    protected function getUser()
+    protected function getUser(): IdentityInterface
     {
         return Yii::$app->user->identity;
     }

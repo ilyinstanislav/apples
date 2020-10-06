@@ -2,7 +2,6 @@
 
 namespace backend\assets;
 
-use common\assets\BaseBootstrapAsset;
 use common\assets\CommonAsset;
 
 /**

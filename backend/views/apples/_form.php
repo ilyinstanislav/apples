@@ -1,13 +1,10 @@
 <?php
-/**
- * @var $apple Apple
- */
 
-use backend\models\Apple;
-use common\helpers\Helper;
+use common\models\Apple;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+/** @var Apple $apple */
 if ($apple->isFalled) {
     $form = ActiveForm::begin([
         'action' => ['apples/eat', 'id' => $apple->id],
